@@ -1,26 +1,48 @@
-import React from 'react';
+import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      userInput: '',
+      vacationSpot: [
+          `San Diego`,
+          `St. Simon's Island`,
+          `Bend`,
+          `Spokane`,
+          `Atlanta`,
+          `Boston`,
+          `Philadelphia`
+      ]
+    }
+  }
+
+  handleChange(value) {
+    this.setState({
+      userInput: value
+    })
+  }
+    
+
+  render() {
+    let vacationSpot = this.state.vacationSpot
+    .filter((e, i) => {
+      return e.includes(this.state.userInput);
+    })
+    .map((e, i) => {
+      return <h2 key={i}>{e}</h2>
+    });
+
+    return (
+      <div class='App'>
+        <input onChange={e => this.handleChange(e.target.value)}></input>
+        <h2>{vacationSpot}</h2>
+      </div>
+
+    )
+  }
 }
 
 export default App;
